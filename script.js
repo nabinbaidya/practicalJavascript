@@ -41,19 +41,32 @@ var todo = {
       todoItem: newItem,
       completed: false
     });
-    this.viewTodo();
+    //this.viewTodo();
   },
 
   //function to edit items in the todolist
   editTodo: function(position, newItem){
-    this.todos[position].todoItem = newItem;
-    this.viewTodo();
+    if(this.checkNumber(position) === true){
+      if(position > this.todos.length){
+        console.log("Cannot edit a task that does not exists.");
+    } else {
+        this.todos[position].todoItem = newItem;
+        this.viewTodo();
+      }
+    }
+    
   },
 
   //function to toggle completed items in the todolist
   toggleCompleted: function(position){
-    this.todos[position].completed = !this.todos[position].completed;
-    this.viewTodo();
+    if(this.checkNumber(position) === true){
+      if(position > this.todos.length){
+          console.log("Cannot complete a task that does not exists.");
+      } else {
+          this.todos[position].completed = !this.todos[position].completed;
+          this.viewTodo();
+      }
+    }      
   },
 
   //function to toggle all items in the todolist
@@ -94,15 +107,30 @@ var todo = {
 
   //function to delete items from the todolist
   delItem: function(position){
-    this.todos.splice(position, 1);
-    this.viewTodo();
+    if(this.checkNumber(position) === true){
+      this.todos.splice(position, 1);
+      this.viewTodo();
+    }
+  },
+
+  checkNumber: function(position){
+    var x = /^\d+$/;
+    if (x.test(position)) { return true; } //integer
+    else { console.log("Position should be a positive number.") } //not an integer
   }
 };
 
 console.log(document);
 var viewTodoBtn = document.getElementById('viewTodoBtn');
+var toggleAllBtn = document.getElementById('toggleAllBtn');
 console.log(viewTodoBtn);
+console.log(toggleAllBtn);
+
 
 viewTodoBtn.addEventListener('click', function(){
   todo.viewTodo();
+});
+
+toggleAllBtn.addEventListener('click', function(){
+  todo.toggleAll();
 });
