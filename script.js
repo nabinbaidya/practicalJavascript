@@ -47,7 +47,7 @@ var todo = {
   //function to edit items in the todolist
   editTodo: function(position, newItem){
     if(this.checkNumber(position) === true){
-      if(position > this.todos.length){
+      if(position >= this.todos.length){
         console.log("Cannot edit a task that does not exists.");
     } else {
         this.todos[position].todoItem = newItem;
@@ -60,7 +60,7 @@ var todo = {
   //function to toggle completed items in the todolist
   toggleCompleted: function(position){
     if(this.checkNumber(position) === true){
-      if(position > this.todos.length){
+      if(position >= this.todos.length){
           console.log("Cannot complete a task that does not exists.");
       } else {
           this.todos[position].completed = !this.todos[position].completed;
